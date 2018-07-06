@@ -76,33 +76,4 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
 
 
 
-####### MODIFY THIS SECTION #############
 
-#The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../01_input/"
-
-#This is where the bt2 files live:
-hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
-
-#This is where the gtf file lives:
-gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
-
-#This is where the genome sequence lives:
-genomefa="/projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz"
-         
-#Number of threads to use:
-pthread=11
-
-
-
-# WERE ERCC SPIKE INS USED?
-ercc="FALSE"   # Change to TRUE if ERCC spike-ins were used in the experiment
-
-#This is where the ercc bt2 files lives:
-erccpath="/projects/erinnish@colostate.edu/genomes/ercc/ercc92"
-
-#This is where the ercc .gtf file lives:
-erccgtf="/projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf"
-
-
-########## DONE MODIFYING ###############

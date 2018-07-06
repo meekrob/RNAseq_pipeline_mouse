@@ -33,25 +33,26 @@ $ sbatch execute_RNAseq_pipeline.sh
 
 ### Step1: Modify RNAseq_analyzer_mouse_180706.sh
 *  Open RNAseq_analyzer_180706.sh and modify the section between ###### MODIFY THIS ####### and ####### DONE MODIFYING ######
-
-```
-#The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../01_input/"
-```
-Modify the this to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
-
-```
-#This is where the bt2 files live:
-hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
-```
-Modify this to point to the path where the hisat2 generated ```.bt2``` files can be located. The default points to Erin's mm10 .bt2 files.
-
-```
-#This is where the genome sequence lives:
-genomefa="/projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz"
-```
-Modify this to point to the file of the full mouse genome. The default points to Erin's mm10 version GRCm38/mm10 downloaded from UCSC http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz on 180424.
+* Update input directory
+  * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
+  ```
+  #The input samples (metadata file and _fastq.gz files) live in directory:
+  inputdir="../01_input/"
+  ```
+* Update .bt2 directory
+ * Modify this to point to the path where the hisat2 generated ```.bt2``` files can be located. The default points to Erin's mm10 .bt2 files.
+  ```
+  #This is where the bt2 files live:
+  hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
+  ```
+* Update the path to the genome sequence
+ * Modify this to point to the file of the full mouse genome. The default points to Erin's mm10 version GRCm38/mm10 downloaded from UCSC http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz on 180424.
 chromFa.tar.gz          09-Feb-2012 13:54  830M 
+  ```
+  #This is where the genome sequence lives:
+  genomefa="/projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz"
+  ```
+
 
 ```
 #This is where the gtf file lives:

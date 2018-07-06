@@ -33,32 +33,32 @@ $ sbatch execute_RNAseq_pipeline.sh
 
 ### Step1: Modify RNAseq_analyzer_mouse_180706.sh
 *  Open RNAseq_analyzer_180706.sh and modify the section between ###### MODIFY THIS ####### and ####### DONE MODIFYING ######
-* Update input directory
+* Update __input directory__
   * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
   ```
   #The input samples (metadata file and _fastq.gz files) live in directory:
   inputdir="../01_input/"
   ```
-* Update .bt2 directory
- * Modify this to point to the path where the hisat2 generated ```.bt2``` files can be located. The default points to Erin's mm10 .bt2 files.
+* Update __.bt2__ directory
+  * Modify this to point to the path where the hisat2 generated ```.bt2``` files can be located. The default points to Erin's mm10 .bt2 files.
   ```
   #This is where the bt2 files live:
   hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
   ```
-* Update the path to the genome sequence
- * Modify this to point to the file of the full mouse genome. The default points to Erin's mm10 version GRCm38/mm10 downloaded from UCSC http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz on 180424.
+* Update the path to the __genome sequence__
+  * Modify this to point to the file of the full mouse genome. The default points to Erin's mm10 version GRCm38/mm10 downloaded from UCSC http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/chromFa.tar.gz on 180424.
 chromFa.tar.gz          09-Feb-2012 13:54  830M 
   ```
   #This is where the genome sequence lives:
   genomefa="/projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz"
   ```
+* Update the path to the __genome feature file__
+  * Modify this to point to the file listing all the mouse genome features. The default points to Erin's mm10 .gtf file. This was downloaded from... ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/. The original file was Mus_musculus.GRCm38.92.chr.gtf.gz. The file was converted to match the UCSC mm10 genome using a home-made script called ```180420_convert_chromosome_names.awk```. This converted the names of each chromosome as outlined in the Ensembl database to those in the UCSC database. The resulting file is called ```Mus_musculus_GRCm38_2UCSC.gtf```.
+  ```
+  #This is where the gtf file lives:
+  gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
+  ```
 
-
-```
-#This is where the gtf file lives:
-gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
-```
-Modify this to point to the file listing all the mouse genome features. The default points to Erin's mm10 .gtf file. This was downloaded from... ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/. The original file was Mus_musculus.GRCm38.92.chr.gtf.gz. The file was converted to match the UCSC mm10 genome using a home-made script called ```180420_convert_chromosome_names.awk```. This converted the names of each chromosome as outlined in the Ensembl database to those in the UCSC database. The resulting file is called ```Mus_musculus_GRCm38_2UCSC.gtf```.
 
 
 

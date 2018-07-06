@@ -79,7 +79,31 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   #This is where the ercc .gtf file lives:
   erccgtf="/projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf"
   ```
-## 2: Modify Step1... RNAseq_analyzer_mouse_180706.sh
-
+## 2: Modify Step2... RNAseq_cleanup_mouse_180706.sh
+* Open RNAseq_cleanup_180706.sh and modify the section between ###### MODIFY THIS ####### and ####### DONE MODIFYING ######
+* Update __input directory__
+  * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
+  ```
+  #The input samples (metadata file and _fastq.gz files) live in directory:
+  inputdir="../01_input/"
+  ```
+* Update the **output directory date**
+  * If the original analysis was done on a different date, update that date. 
+  ```
+  #This is the output_directory:
+  #DATE=`date +%Y-%m-%d`
+  #OR
+  DATE=2018-07-06
+  outputdir="../03_output/"$DATE"_output/
+  ```
+  If it was done today, you can opt use system date to auto-input the date, like so...
+  ```
+  #This is the output_directory:
+  DATE=`date +%Y-%m-%d`
+  #OR
+  #DATE=2018-07-06
+  outputdir="../03_output/"$DATE"_output/
+  ```
+  
 
 

@@ -39,7 +39,7 @@ $ sbatch execute_RNAseq_pipeline.sh
   #The input samples (metadata file and _fastq.gz files) live in directory:
   inputdir="../01_input/"
   ```
-* Update __.bt2__ directory
+* Update __.bt2 directory__
   * Modify this to point to the path where the hisat2 generated ```.bt2``` files can be located. The default points to Erin's mm10 .bt2 files.
   ```
   #This is where the bt2 files live:
@@ -58,7 +58,21 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   #This is where the gtf file lives:
   gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
   ```
-
+* Specify whether __ERCC Spike-In Controls__ were used 
+  * Update the toggle to determine whether ERCC spike-in controls were used to __TRUE__ or __FALSE__
+  ```
+  ercc="FALSE"   # Change to TRUE if ERCC spike-ins were used in the experiment
+  ```
+* IF ERCC Spike-ins were used, update the path to the directory containing __.bt2 files for ERCC Spike-in controls__
+  ```
+  #This is where the ercc bt2 files lives:
+  erccpath="/projects/erinnish@colostate.edu/genomes/ercc/ercc92"
+  ```
+* IF ERCC Spike-ins were used, update the path the __.gtf files for ERCC Spike-in controls__
+  ```
+  #This is where the ercc .gtf file lives:
+  erccgtf="/projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf"
+  ```
 
 
 

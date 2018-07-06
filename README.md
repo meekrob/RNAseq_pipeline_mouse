@@ -2,9 +2,9 @@
 This is a very basic RNA-seq pipeline that I use for analyzing mouse RNA-seq paired-end sequencing. Step1 is a simple wrapper that performs quality control, genome alignment, basic format conversions, and htseq-count tabulation for paired-end RNA-seq samples using the mouse genome. Step2 is a clean up program that removes unnecessary files and compress files to save space.
 
 ### Programs:
-execute_RNAseq_pipeline.sh
-RNAseq_analyzer_mouse_180706.sh
-RNAseq_cleanup_mouse_180706.sh
+execute_RNAseq_pipeline.sh  
+RNAseq_analyzer_mouse_180706.sh  
+RNAseq_cleanup_mouse_180706.sh  
 
 ### Author:
 Erin Osborne Nishimura
@@ -13,7 +13,7 @@ Erin Osborne Nishimura
 July 6, 2018
 
 ### Dependencies: 
-  Requires fastqc, hisat2, htseq, samtools, deep=tools
+  Requires fastqc, hisat2, htseq, samtools, deep-tools
 
 ### Requires: 
 1. INPUT: .fastq.gz files. For each sample, paired forward and reverse sequencing files are required. These should be placed in an input directory.

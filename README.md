@@ -10,7 +10,7 @@ RNAseq_cleanup_mouse_180706.sh
 Erin Osborne Nishimura
 
 ### Date initiated:
-July 3, 2018
+July 6, 2018
 
 ### Dependencies: 
   Requires fastqc, hisat2, htseq, samtools, deep=tools
@@ -18,14 +18,11 @@ July 3, 2018
 ### Requires: 
 1) INPUT: .fastq.gz files. For each sample, paired forward and reverse sequencing files are required. These should be placed in an input directory.
 2) INPUT: \_metadata.txt file: A metadata file with two columns. The first two columns are fastq.gz file names. The third column is a "nickname" of each sample. Later columns can be included with other metadata information. Metadata file should be placed within the inputdir directory. Example of a metadata file:
-3) BUILD: 
-#
-# Requires: bt2 files for the mouse genome.
-# 
-# Requires a gtf file for the mouse genome.
-#
-# Requires a .fa genome sequence for the mouse genome.
-# 
-# Executed with:
-# bash RNAseq_analyzer_mouse.sh metadata.txt 2>&1 | tee 180423_output.txt
+3) BUILD: .bt2 files for the mouse genome. These are produced using hisat2-build. For instructions see https://ccb.jhu.edu/software/hisat2/manual.shtml#the-hisat2-build-indexer
+4) GENOME: .fa file for the mouse genome. This is the sequence of the mouse genome.
+5) GENOME: .gtf file for the mouse genome. This is a genome annotation file of gene features. Version and coordinates must match the genome sequence (.fa above)
+
+### Executed on SUMMIT with:
+$ sbatch execute_RNAseq_pipeline.sh
+
 ################################################

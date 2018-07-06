@@ -13,7 +13,13 @@ Erin Osborne Nishimura
 July 6, 2018
 
 ### Dependencies: 
-  Requires fastqc, hisat2, htseq, samtools, deep-tools
+* Requires the installation of the follwing software: 
+  * fastqc
+  * hisat2
+  * htseq
+  * samtools
+  * deep-tools
+* Requires group access to the Nishimura lab on SUMMIT
 
 ### Requires: 
 1. INPUT: .fastq.gz files. For each sample, paired forward and reverse sequencing files are required. These should be placed in an input directory.

@@ -27,7 +27,7 @@ July 6, 2018
 $ sbatch execute_RNAseq_pipeline.sh
 ```
 
-##################
+-----
 
 # INSTRUCTIONS
 

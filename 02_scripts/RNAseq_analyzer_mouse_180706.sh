@@ -2,38 +2,47 @@
 
 ################################################
 # Program:
-# RNAseq_analyzer_mouse.sh
+# RNAseq_analyzer_mouse_180706.sh
+#
+# Description:
+# This is a very basic RNA-seq pipeline that I use for analyzing mouse, paired-end RNA-seq. Step1 is a simple 
+# wrapper that performs quality control, genome alignment, basic format conversions, and htseq-count tabulation 
+# for paired-end RNA-seq samples using the mouse genome. Step2 is a clean up program that removes unnecessary 
+# files and compress files to save space.
 #
 # Author:
 # Erin Osborne Nishimura
 #
 # Date initiated:
-# July 3, 2018
+# July 6, 2018
 #
-# Description:
+# Dependencies:
+# Requires the installation of the follwing software: fastqc, hisat2, htseq, samtools, deep-tools
+# Requires group access to the Nishimura lab on SUMMIT
 #
-# This is a very basic RNA-seq pipeline that I use for analyzing mouse RNA-seq paired-end sequencing
+# Requires:
+#    INPUT: .fastq.gz files. For each sample, paired forward and reverse sequencing files are required. 
+#                            These should be placed in an input directory.
 #
-# Requires: fastqc, hisat2, htseq, samtools
+#    INPUT: _metadata.txt file: A metadata file with two columns. The first two columns are fastq.gz 
+#                            file names. The third column is a "nickname" of each sample. Later columns 
+#                            can be included with other metadata information. Metadata file should be 
+#                            placed within the inputdir directory. Example of a metadata file:
 #
-# Requires: For each sample, forward and reverse paired end sequences are required. The .fastq.gz files
-#           should be placed in the inputdir directory.
+#    BUILD: .bt2 files for the mouse genome. These are produced using hisat2-build. For instructions 
+#                            see https://ccb.jhu.edu/software/hisat2/manual.shtml#the-hisat2-build-indexer
 #
-# Requires: A metadata file with two columns. The first two columns are fastq.gz file names. 
-#           The third column is a "nickname" of each sample
-#			Later columns can be included with other metadata information
-#           Metadata file should be placed within the inputdir directory.
+#    GENOME: .fa file for the mouse genome. This is the sequence of the mouse genome.
 #
-# Requires: bt2 files for the mouse genome.
-# 
-# Requires a gtf file for the mouse genome.
+#    GENOME: .gtf file for the mouse genome. This is a genome annotation file of gene features. Version 
+#                            and coordinates must match the genome sequence (.fa above)
 #
-# Requires a .fa genome sequence for the mouse genome.
-# 
 # Executed with:
-# bash RNAseq_analyzer_mouse.sh metadata.txt 2>&1 | tee 180423_output.txt
+# $ bash RNAseq_analyzer_mouse.sh metadata.txt 
+# OR
+# $ bash RNAseq_analyzer_mouse.sh metadata.txt 2>&1 | tee 180423_output.txt
+#
 ################################################
-
 
 
 echo -e ">>> INITIATING analyzer with command:\n\t$0 $@"
@@ -47,15 +56,16 @@ inputdir="../01_input/"
 #This is where the bt2 files live:
 hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
 
-#This is where the gtf file lives:
-gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
-
 #This is where the genome sequence lives:
 genomefa="/projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz"
-         
-#Number of threads to use:
-pthread=11
 
+#This is where the gtf file lives:
+gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf"
+    
+#Number of threads to use:
+pthread=$2
+
+echo -e "number of threads is $pthread"
 
 
 # WERE ERCC SPIKE INS USED?
@@ -197,8 +207,6 @@ do
     echo -e "\thtseq-count --stranded=yes --minaqual=20 -r pos -q ${outhtseq}${samfile} $gtffile > ${outhtseq}${names[$counter]}_counts.txt"
     #time htseq-count --stranded=yes --minaqual=20 -r pos -q ${outhisat2}${samfile} $gtffile > ${outhtseq}${names[$counter]}_counts.txt
 
-
-    #rm ${outhtseq}${samfile}
 done
 
 
@@ -215,7 +223,7 @@ do
     
     # Samtools: compress .sam -> .bam
 	echo -e "\t$ samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam"
-	samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam
+	#samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam
     
     # Samtools: sort .bam -> _sort.bam
     echo -e "\t$ samtools sort --threads $pthread -o ${samout}${seqname}_sort.bam --reference $genomefa ${samout}${seqname}.bam"
@@ -229,7 +237,7 @@ do
     export PYTHONPATH=/projects/dcking@colostate.edu/lib/python3.5/site-packages/
     echo -e "BamCoverage convert: ${seqname}"
     echo -e "\t$ bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1"
-    time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
+    #time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
     export PYTHONPATH=/projects/dcking@colostate.edu/lib/python2.7/site-packages/
 done
 
@@ -275,13 +283,13 @@ then
 	do
 
 		echo -e "samtools sort --output-fmt SAM -o ${out_ercc_counts}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam"
-		samtools sort --output-fmt SAM -o ${out_ercc_counts}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam
+		#samtools sort --output-fmt SAM -o ${out_ercc_counts}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam
 	
 		samfile=${names[$counter]}_ercc_sort.sam
 		echo -e $samfile
 	
 		echo -e "\thtseq-count --stranded=yes --minaqual=20 -r pos -q ${out_ercc_counts}${samfile} $erccgtf > ${out_ercc_counts}${names[$counter]}_counts.txt"
-		time htseq-count --stranded=yes --minaqual=20 -r pos -q ${out_ercc_counts}${samfile} $erccgtf > ${out_ercc_counts}${names[$counter]}_counts.txt
+		#time htseq-count --stranded=yes --minaqual=20 -r pos -q ${out_ercc_counts}${samfile} $erccgtf > ${out_ercc_counts}${names[$counter]}_counts.txt
 
 		rm ${out_ercc_counts}${samfile}
 	done

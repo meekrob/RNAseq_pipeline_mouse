@@ -1,10 +1,10 @@
 # RNAseq_pipeline_mouse
-This is a very basic RNA-seq pipeline that I use for analyzing mouse, paired-end RNA-seq. Step1 is a simple wrapper that performs quality control, genome alignment, basic format conversions, and htseq-count tabulation for paired-end RNA-seq samples using the mouse genome. Step2 is a clean up program that removes unnecessary files and compress files to save space.
+This is a very basic RNA-seq pipeline that I use for analyzing mouse, paired-end RNA-seq. **Step1** is a simple wrapper that performs quality control, genome alignment, basic format conversions, and htseq-count tabulation for paired-end RNA-seq samples using the mouse genome. **Step2** is a clean up program that removes unnecessary files and compress files to save space.
 
 ### Programs:
-Wrapper: execute_RNAseq_pipeline.sh  
-Step1: RNAseq_analyzer_mouse_180706.sh  
-Step2: RNAseq_cleanup_mouse_180706.sh  
+**Wrapper:** execute_RNAseq_pipeline.sh  
+**Step1:** RNAseq_analyzer_mouse_180706.sh  
+**Step2:** RNAseq_cleanup_mouse_180706.sh  
 
 ### Author:
 Erin Osborne Nishimura
@@ -121,12 +121,14 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
 source /projects/dcking@colostate.edu/paths.bashrc
 
 ## execute the RNA-seq_pipeline
-bash RNAseq_analyzer_mouse_180603.sh ../01_input/metadata_mouse.txt 24  
-     # modify the SECOND argument to point to YOUR metadata.file; modify the THIRD argument to 
-     # indicate the number of THREADS you want to use. This number must match the number 
-     # in #SBATCH --ntasks=#
+bash RNAseq_analyzer_mouse_180706.sh ../01_input/metadata_mouse.txt 24  
+     # modify the SECOND argument to point to YOUR metadata.file
+     # modify the THIRD argument to indicate the number of THREADS you 
+     # want to use. This number must match the number in #SBATCH --ntasks=#
 
 ## clean up by zipping .fastq files and deleting extra files
 bash RNAseq_cleanup_mouse_180706.sh ../01_input/metadata_mouse.txt
      # modify the SECOND argument to point to YOUR metadata.file
 ```
+
+

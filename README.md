@@ -38,6 +38,7 @@ $ sbatch execute_RNAseq_pipeline.sh
 # INSTRUCTIONS
 
 ## 1: Modify Step1... RNAseq_analyzer_mouse_180706.sh
+*  Navigate into ```02_scripts```
 *  Open RNAseq_analyzer_180706.sh and modify the section between ###### MODIFY THIS ####### and ####### DONE MODIFYING ######
 * Update __input directory__
   * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
@@ -80,6 +81,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   erccgtf="/projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf"
   ```
 ## 2: Modify Step2... RNAseq_cleanup_mouse_180706.sh
+*  Navigate into ```02_scripts```
 * Open RNAseq_cleanup_180706.sh and modify the section between ###### MODIFY THIS ####### and ####### DONE MODIFYING ######
 * Update __input directory__
   * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.

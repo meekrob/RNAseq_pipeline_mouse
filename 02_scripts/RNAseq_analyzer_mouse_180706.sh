@@ -51,7 +51,7 @@ echo -e ">>> INITIATING analyzer with command:\n\t$0 $@"
 ####### MODIFY THIS SECTION #############
 
 #The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../01_input/"
+inputdir="../04_testing/"
 
 #This is where the bt2 files live:
 hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
@@ -65,11 +65,9 @@ gtffile="/projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musc
 #Number of threads to use:
 pthread=$2
 
-echo -e "number of threads is $pthread"
-
 
 # WERE ERCC SPIKE INS USED?
-ercc="FALSE"   # Change to TRUE if ERCC spike-ins were used in the experiment
+ercc="TRUE"   # Change to TRUE if ERCC spike-ins were used in the experiment
 
 #This is where the ercc bt2 files lives:
 erccpath="/projects/erinnish@colostate.edu/genomes/ercc/ercc92"
@@ -129,14 +127,14 @@ echo -e "\n>>> GUNZIP: unzipping _R1.fastq.gz files:"
 for fastqfile in ${samples1[@]}
 do
    echo -e "\tgunzipping $fastqfile"
-   #gunzip $inputdir$fastqfile
+   gunzip -q $inputdir$fastqfile
 done
 
 echo -e ">>> GUNZIP: unzipping _R2.fastq.gz files:"
 for fastqfile in ${samples2[@]}
 do
    echo -e "\tgunzipping $fastqfile"
-   #gunzip $inputdir$fastqfile
+   gunzip -q $inputdir$fastqfile
 done
 
 
@@ -161,10 +159,10 @@ do
    	
    	# execute fastqc
    	echo -e "\t$ fastqc -o $outputdir"01_fastqc/"$samplename"_1" -t 20 $inputdir$unzippedfile1"
-   	#time fastqc -o $outputdir"01_fastqc/"$samplename"_1" -t 20 $inputdir$unzippedfile1
+   	time fastqc -o $outputdir"01_fastqc/"$samplename"_1" -t 20 $inputdir$unzippedfile1
    	
    	echo -e "\t$ fastqc -o $outputdir"01_fastqc/"$samplename"_2" -t 20 $inputdir$unzippedfile2"
-   	#time fastqc -o $outputdir"01_fastqc/"$samplename"_2" -t 20 $inputdir$unzippedfile2
+   	time fastqc -o $outputdir"01_fastqc/"$samplename"_2" -t 20 $inputdir$unzippedfile2
 	
 done
 
@@ -187,7 +185,7 @@ do
 
    	# execute hisat2
    	echo -e "\t$ hisat2 -x $hisat2path -1 ${inputdir}${unzippedfile1} -2 ${inputdir}${unzippedfile2} -S ${outhisat2}${samplename}.sam --summary-file ${outhisat2}${samplename}_summary.txt --no-unal -p $pthread"
-	#time hisat2 -x $hisat2path -1 ${inputdir}${unzippedfile1} -2 ${inputdir}${unzippedfile2} -S ${outhisat2}${samplename}.sam --summary-file ${outhisat2}${samplename}_summary.txt --no-unal -p $pthread
+	time hisat2 -x $hisat2path -1 ${inputdir}${unzippedfile1} -2 ${inputdir}${unzippedfile2} -S ${outhisat2}${samplename}.sam --summary-file ${outhisat2}${samplename}_summary.txt --no-unal -p $pthread
 
 done
 
@@ -201,11 +199,9 @@ mkdir -p $outhtseq
 for (( counter=0; counter < ${#samples1[@]}; counter++ ))
 do
     samfile=${names[$counter]}.sam
-    echo -e $samfile
-    #samtools view --threads 19 -h -o ${outhtseq}${samfile} ${samout}${bamfile}
     
     echo -e "\thtseq-count --stranded=yes --minaqual=20 -r pos -q ${outhtseq}${samfile} $gtffile > ${outhtseq}${names[$counter]}_counts.txt"
-    #time htseq-count --stranded=yes --minaqual=20 -r pos -q ${outhisat2}${samfile} $gtffile > ${outhtseq}${names[$counter]}_counts.txt
+    time htseq-count --stranded=yes --minaqual=20 -r pos -q ${outhisat2}${samfile} $gtffile > ${outhtseq}${names[$counter]}_counts.txt
 
 done
 
@@ -219,25 +215,24 @@ mkdir -p $samout
 for seqname in ${names[@]}
 do
     # echo
-    echo -e "Samtools convert: ${seqname}"
+    echo -e "\tSamtools and BamCoverage convert: ${seqname}"
     
     # Samtools: compress .sam -> .bam
 	echo -e "\t$ samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam"
-	#samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam
+	samtools view --threads $pthread -bS ${outhisat2}${seqname}.sam > ${samout}${seqname}.bam
     
     # Samtools: sort .bam -> _sort.bam
     echo -e "\t$ samtools sort --threads $pthread -o ${samout}${seqname}_sort.bam --reference $genomefa ${samout}${seqname}.bam"
-    #samtools sort --threads $pthread -o ${samout}${seqname}_sort.bam --reference $genomefa ${samout}${seqname}.bam
+    samtools sort --threads $pthread -o ${samout}${seqname}_sort.bam --reference $genomefa ${samout}${seqname}.bam
     
     # Samtools: index _sort.bam -> _sort.bam.bai
     echo -e "\t$ samtools index ${samout}${seqname}_sort.bam"
-    #samtools index ${samout}${seqname}_sort.bam
+    samtools index ${samout}${seqname}_sort.bam
     
     # bamCoverage: 
     export PYTHONPATH=/projects/dcking@colostate.edu/lib/python3.5/site-packages/
-    echo -e "BamCoverage convert: ${seqname}"
     echo -e "\t$ bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1"
-    #time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
+    time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
     export PYTHONPATH=/projects/dcking@colostate.edu/lib/python2.7/site-packages/
 done
 
@@ -248,12 +243,12 @@ done
 #                ERCC                        #
 ##############################################
 
-echo -e "ERCC variable is $ercc"
+echo -e "\n>>>ERCC variable is $ercc"
 
 if [ $ercc == "TRUE" ]
 then
 	# HISAT2 to align to the ERCC spike-in controls
-	echo -e "\n>>> HISAT2: aligning each sample to the ERCC spike in library"
+	echo -e "\n>>> ERCC HISAT2: aligning each sample to the ERCC spike in library"
 	outercc=$outputdir"05_ercc/"
 	mkdir -p $outercc
 
@@ -268,30 +263,25 @@ then
 		unzippedfile2=${sample2//.gz/}
 
 		# execute hisat2
-		echo -e "\t$ hisat2 -x $erccpath -1 $unzippedfile1 -2 $unzippedfile2 -S ${outercc}${samplename}_ercc.sam --summary-file ${outercc}${samplename}_ercc_summary.txt --no-unal -p 20"
-		#time hisat2 -x $erccpath -1 ${inputdir}${unzippedfile1} -2 ${inputdir}${unzippedfile2} -S ${outercc}${samplename}_ercc.sam --summary-file ${outercc}${samplename}_ercc_summary.txt --no-unal -p 20
+		echo -e "\t$ hisat2 -x $erccpath -1 $unzippedfile1 -2 $unzippedfile2 -S ${outercc}${samplename}_ercc.sam --summary-file ${outercc}${samplename}_ercc_summary.txt --no-unal -p $pthread"
+		time hisat2 -x $erccpath -1 ${inputdir}${unzippedfile1} -2 ${inputdir}${unzippedfile2} -S ${outercc}${samplename}_ercc.sam --summary-file ${outercc}${samplename}_ercc_summary.txt --no-unal -p $pthread
 
 	done
 
 
 	# RUN HT-SEQ ON ALL FILES USING ERCC GTF FILE:
 	echo -e "\n>>> HTSEQ_ERCC: Run HTSeq-counts on ERCC 'Genes'"
-	out_ercc_counts=$outputdir"06_ercc_counts/"
-	mkdir -p $out_ercc_counts
-
 	for (( counter=0; counter < ${#samples1[@]}; counter++ ))
 	do
 
-		echo -e "samtools sort --output-fmt SAM -o ${out_ercc_counts}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam"
-		#samtools sort --output-fmt SAM -o ${out_ercc_counts}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam
+		echo -e "samtools sort --output-fmt SAM -o ${outercc}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam"
+		samtools sort --output-fmt SAM -o ${outercc}${names[$counter]}_ercc_sort.sam -n ${outercc}${names[$counter]}_ercc.sam
 	
 		samfile=${names[$counter]}_ercc_sort.sam
-		echo -e $samfile
 	
-		echo -e "\thtseq-count --stranded=yes --minaqual=20 -r pos -q ${out_ercc_counts}${samfile} $erccgtf > ${out_ercc_counts}${names[$counter]}_counts.txt"
-		#time htseq-count --stranded=yes --minaqual=20 -r pos -q ${out_ercc_counts}${samfile} $erccgtf > ${out_ercc_counts}${names[$counter]}_counts.txt
+		echo -e "\thtseq-count --stranded=yes --minaqual=20 -r pos -q ${outercc}${samfile} $erccgtf > ${outercc}${names[$counter]}_counts.txt"
+		time htseq-count --stranded=yes --minaqual=20 -r pos -q ${outercc}${samfile} $erccgtf > ${outercc}${names[$counter]}_counts.txt
 
-		rm ${out_ercc_counts}${samfile}
 	done
 	
 fi

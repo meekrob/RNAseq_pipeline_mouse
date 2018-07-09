@@ -1,2 +1,1 @@
-EO070_S2_R1_001.fastq.gz	EO070_S2_R2_001.fastq.gz	EO070	LCM_cells	mouse
-EO071_S3_R1_001.fastq.gz	EO071_S3_R2_001.fastq.gz	EO071	whole_cells	mouse
+EO070_S2_R1_001_test.fastq.gz	EO070_S2_R2_001_test.fastq.gz	EO070	LCM_cells	mouse

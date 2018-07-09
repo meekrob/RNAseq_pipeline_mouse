@@ -29,16 +29,14 @@ echo -e ">>> INITIATING cleanup with command:\n\t$0 $@"
 ####### MODIFY THIS SECTION #############
 
 #The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../01_input/"
+inputdir="../04_testing/"
 
 #This is the output_directory:
-#DATE=`date +%Y-%m-%d`
+DATE=`date +%Y-%m-%d`
 #OR
-DATE=2018-07-06
+#DATE=2018-07-06
 outputdir="../03_output/"$DATE"_output/"
 
-# WERE ERCC SPIKE INS USED?
-ercc="FALSE"   # Change to TRUE if ERCC spike-ins were used in the experiment
 
 ########## DONE MODIFYING ###############
 
@@ -71,13 +69,13 @@ for fastqfile in ${samples1[@]}
 do
 	unzippedfile=${fastqfile//.fastq.gz/.fastq}
    echo -e "gzipping $unzippedfile"
-   #gzip $inputdir$unzippedfile
+   gzip $inputdir$unzippedfile
 done
 for fastqfile in ${samples2[@]}
 do
 	unzippedfile=${fastqfile//.fastq.gz/.fastq}
    echo -e "gzipping $unzippedfile"
-   #gzip $inputdir$unzippedfile
+   gzip $inputdir$unzippedfile
 done
 
 
@@ -98,7 +96,7 @@ do
 	then
 		# remove the .sam file
 		echo -e "\t$ rm ${outhisat2}${seqname}.sam"
-		#rm ${outhisat2}${seqname}.sam
+		rm ${outhisat2}${seqname}.sam
 	fi
 done
 
@@ -115,8 +113,9 @@ do
 	then
 		# Delete the .bam file
 		echo -e "\t$ rm ${samout}${seqname}.bam"
-		#rm ${samout}${seqname}.bam
+		rm ${samout}${seqname}.bam
 	fi
 done
 
 
+echo -e "\n>>> END PROGRAM: Clean up is complete."

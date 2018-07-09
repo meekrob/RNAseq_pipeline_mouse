@@ -146,7 +146,7 @@ $ sbatch execute_RNAseq_pipeline.sh
 ```
 $ sbatch execute_RNAseq_pipeline.sh
 ```
-* Check that the resulting 03_output directory matches the example output directory in ```.../04_testing/03_output/"
+* Check that the resulting 03_output directory matches the example output directory in ```.../04_testing/2018-07-09_output/"
 
 
  ## 4: Modify wrapper... execute_RNAseq_pipeline.sh 

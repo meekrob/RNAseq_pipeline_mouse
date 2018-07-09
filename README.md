@@ -96,13 +96,13 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
 * Open ```RNAseq_cleanup_180706.sh``` and modify the section between ###### MODIFY THIS ####### **and** ####### DONE MODIFYING ######
 * Update __input directory__
   * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
-  ```
+  ```bash
   #The input samples (metadata file and _fastq.gz files) live should in directory. Optionally, if you plan on running a testing run first, set this option to "../04_testing/"
   inputdir="../01_input/"
   ```
 * Update the **output directory date**
   * If the original analysis was done on a different date, update that date. 
-  ```
+  ```bash
   #This is the output_directory:
   #DATE=`date +%Y-%m-%d`
   #OR
@@ -110,7 +110,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   outputdir="../03_output/"$DATE"_output/
   ```
   If it was done today, you can opt use system date to auto-input the date, like so...
-  ```
+  ```bash
   #This is the output_directory:
   DATE=`date +%Y-%m-%d`
   #OR
@@ -163,7 +163,7 @@ $ sbatch execute_RNAseq_pipeline.sh
  ## 5: Modify wrapper... execute_RNAseq_pipeline.sh 
  * Open **execute_RNAseq_pipeline.sh** and modify the script to fit YOUR desired SUMMIT conditions, intput directories, input files, and other preferences.
  
-```
+```bash
 #SBATCH --job-name=execute_RNAseq_pipeline 
 #SBATCH --nodes=1
 #SBATCH --ntasks=24      # modify this number to reflect how many cores you want to use (up to 24)

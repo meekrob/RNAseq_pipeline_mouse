@@ -86,7 +86,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
 * Update __input directory__
   * Modify the this section to point to your input directory where the ```_metadata.txt``` file and ```.fastq.gz``` files can be located.
   ```
-  #The input samples (metadata file and _fastq.gz files) live in directory:
+  #The input samples (metadata file and _fastq.gz files) live should in directory. Optionally, if you plan on running a testing run first, set this option to "../04_testing/"
   inputdir="../01_input/"
   ```
 * Update the **output directory date**
@@ -107,7 +107,43 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   outputdir="../03_output/"$DATE"_output/
   ```
  
- ## 3: Modify wrapper... execute_RNAseq_pipeline.sh 
+
+
+ ## 3: optional testing... execute_RNAseq_pipeline.sh to run on test files
+ * Open **execute_RNAseq_pipeline.sh** and modify the script to fit your desired SUMMIT conditions and testing files:
+ 
+```bash
+#!/bin/bash
+
+#SBATCH --job-name=execute_RNAseq_pipeline 
+#SBATCH --nodes=1
+#SBATCH --ntasks=12      # modify this number to reflect how many cores you want to use (up to 24)
+#SBATCH --partition=shas
+#SBATCH --qos=normal     # modify this to reflect which queue you want to use. Options are 'normal' and 'testing'
+#SBATCH --time=0:29:00   # modify this to reflect how long to let the job go. This indicates 4 hours.
+#SBATCH --output=log_RNAseq_pipe_%j.txt
+
+##
+source /projects/dcking@colostate.edu/paths.bashrc
+
+## execute the RNA-seq_pipeline
+bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12
+     # modify the SECOND argument to point to YOUR metadata.file
+     # modify the THIRD argument to indicate the number of THREADS you 
+     # want to use. This number must match the number in #SBATCH --ntasks=#
+
+## clean up by zipping .fastq files and deleting extra files
+#bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt
+     # modify the SECOND argument to point to YOUR metadata.file
+```
+* First, double check that the inputdir specified within the program RNAseq_cleanup_mouse_180706.sh points to "../04_testint/".
+* Double check that the analyzer will run first. Do this by ensuring the command ```bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12``` is uncommented (has no # in front of it). Ensure that the next command ```#bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt``` IS commented (does have a # sign in front of it).
+* Run the ```execute_RNAseq_pipeline.sh``` script by entering...
+```
+$ sbatch execute_RNAseq_pipeline.sh
+```
+
+ ## 4: Modify wrapper... execute_RNAseq_pipeline.sh 
  * Open **execute_RNAseq_pipeline.sh** and modify the script to fit your desired SUMMIT conditions
  
 ```
@@ -132,5 +168,3 @@ bash RNAseq_analyzer_mouse_180706.sh ../01_input/metadata_mouse.txt 24
 bash RNAseq_cleanup_mouse_180706.sh ../01_input/metadata_mouse.txt
      # modify the SECOND argument to point to YOUR metadata.file
 ```
-
-

@@ -38,11 +38,15 @@ $ sbatch execute_RNAseq_pipeline.sh
 # INSTRUCTIONS
 
 ## 1: Prepare input information
-* Copy and paste your input sequences to be analyzed in the directory **01_input**
-* Write a metadata.txt file into the directory **01_input**. This is a flat text file that contains a minimum of three, tab-separated columns. The first two columns are fastq.gz 
-#                            file names. The third column is a "nickname" of each sample. Later columns 
-#                            can be included with other metadata information. Metadata file should be 
-#                            placed within the inputdir directory. Example of a metadata file:
+* Copy and paste your **input .fastq.gz sequences** to be analyzed in the directory **01_input**
+* Write a **metadata.txt** file into the directory **01_input**. This is a flat text file that contains a minimum of three, tab-separated columns. The first two columns are fastq.gz file names for the two paired-end sequence files associated with each sample. The third column is a "nickname" of each sample. Later columns an be included with other metadata information. Metadata file should be placed within the inputdir directory. Example of a metadata file:
+
+```
+EO069_S1_R1_001.fastq.gz	EO069_S1_R2_001.fastq.gz	EO069	growthcones	wildtype mouse
+EO070_S2_R1_001.fastq.gz	EO070_S2_R2_001.fastq.gz	EO070	LCM_cells	wildtype mouse
+EO071_S3_R1_001.fastq.gz	EO071_S3_R2_001.fastq.gz	EO071	growthcones	mutant mouse
+EO072_S4_R1_001.fastq.gz	EO072_S4_R2_001.fastq.gz	EO072	LCM_cells	mutant mouse
+```
 
 ## 2: Modify Step1... RNAseq_analyzer_mouse_180706.sh
 *  Navigate into ```02_scripts```

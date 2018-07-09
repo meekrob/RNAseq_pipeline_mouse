@@ -136,15 +136,21 @@ bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12
 #bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt
      # modify the SECOND argument to point to YOUR metadata.file
 ```
-* First, double check that the inputdir specified within the program RNAseq_cleanup_mouse_180706.sh points to "../04_testint/".
+* First, double check that the inputdir specified within the program ```RNAseq_cleanup_mouse_180706.sh``` points to ```../04_testing/```.
 * Double check that the analyzer will run first. Do this by ensuring the command ```bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12``` is uncommented (has no # in front of it). Ensure that the next command ```#bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt``` IS commented (does have a # sign in front of it).
 * Run the ```execute_RNAseq_pipeline.sh``` script by entering...
 ```
 $ sbatch execute_RNAseq_pipeline.sh
 ```
+* Next, run the cleanup function but commenting the command ```#bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12``` and un-commenting the second: ```bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt```. Then execute:
+```
+$ sbatch execute_RNAseq_pipeline.sh
+```
+* Check that the resulting 03_output directory matches the example output directory in ```.../04_testing/03_output/"
+
 
  ## 4: Modify wrapper... execute_RNAseq_pipeline.sh 
- * Open **execute_RNAseq_pipeline.sh** and modify the script to fit your desired SUMMIT conditions
+ * Open **execute_RNAseq_pipeline.sh** and modify the script to fit YOUR desired SUMMIT conditions, intput directories, input files, and other preferences.
  
 ```
 #SBATCH --job-name=execute_RNAseq_pipeline 
@@ -168,3 +174,9 @@ bash RNAseq_analyzer_mouse_180706.sh ../01_input/metadata_mouse.txt 24
 bash RNAseq_cleanup_mouse_180706.sh ../01_input/metadata_mouse.txt
      # modify the SECOND argument to point to YOUR metadata.file
 ```
+* Execute either in two steps (analyzer first, then clean up second, as in the testing phase, above) or as one step. 
+* Execute as follows...
+```
+$ sbatch execute_RNAseq_pipeline.sh
+```
+* Save the resulting log files.

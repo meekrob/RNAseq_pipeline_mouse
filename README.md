@@ -109,7 +109,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
  
 
 
- ## 3: optional testing... execute_RNAseq_pipeline.sh to run on test files
+ ## 3: Optional testing... execute_RNAseq_pipeline.sh to run on test files
  * Open **execute_RNAseq_pipeline.sh** and modify the script to fit your desired SUMMIT conditions and testing files:
  
 ```bash
@@ -174,7 +174,8 @@ bash RNAseq_analyzer_mouse_180706.sh ../01_input/metadata_mouse.txt 24
 bash RNAseq_cleanup_mouse_180706.sh ../01_input/metadata_mouse.txt
      # modify the SECOND argument to point to YOUR metadata.file
 ```
-* Execute either in two steps (analyzer first, then clean up second, as in the testing phase, above) or as one step. 
+* Double check that both ``` RNAseq_analyzer_mouse_180706.sh``` and ```RNAseq_cleanup_mouse_180706.sh``` meet your desired input files, input directories, file structures, and preferences.
+* Execute in either in two steps (analyzer first, then clean up second, as in the testing phase, above) or as one step. 
 * Execute as follows...
 ```
 $ sbatch execute_RNAseq_pipeline.sh

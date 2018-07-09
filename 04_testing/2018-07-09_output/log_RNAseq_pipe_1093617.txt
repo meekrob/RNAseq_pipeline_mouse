@@ -1,0 +1,197 @@
+Loading BX Environment... Environment loaded.
+>>> INITIATING analyzer with command:
+	RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt 12
+>>> MAKING output directory
+	mkdir ../03_output/2018-07-09_output/
+>>> INPUT: This script will process files from the metafile:
+	../04_testing/metadata_mouse.txt
+>>> PLAN: This script will process the sample files into the following names: 
+	SAMPLE1	SAMPLE2	NAMES
+	EO070_S2_R1_001_test.fastq.gz	EO070_S2_R2_001_test.fastq.gz	EO070
+
+>>> GUNZIP: unzipping _R1.fastq.gz files:
+	gunzipping EO070_S2_R1_001_test.fastq.gz
+gzip: ../04_testing/EO070_S2_R1_001_test.fastq.gz: No such file or directory
+>>> GUNZIP: unzipping _R2.fastq.gz files:
+	gunzipping EO070_S2_R2_001_test.fastq.gz
+gzip: ../04_testing/EO070_S2_R2_001_test.fastq.gz: No such file or directory
+
+>>> FASTQC: analyzing quality of each .fastq file
+	$ fastqc -o ../03_output/2018-07-09_output/01_fastqc/EO070_1 -t 20 ../04_testing/EO070_S2_R1_001_test.fastq
+Started analysis of EO070_S2_R1_001_test.fastq
+Approx 5% complete for EO070_S2_R1_001_test.fastq
+Approx 10% complete for EO070_S2_R1_001_test.fastq
+Approx 15% complete for EO070_S2_R1_001_test.fastq
+Approx 20% complete for EO070_S2_R1_001_test.fastq
+Approx 25% complete for EO070_S2_R1_001_test.fastq
+Approx 30% complete for EO070_S2_R1_001_test.fastq
+Approx 35% complete for EO070_S2_R1_001_test.fastq
+Approx 40% complete for EO070_S2_R1_001_test.fastq
+Approx 45% complete for EO070_S2_R1_001_test.fastq
+Approx 50% complete for EO070_S2_R1_001_test.fastq
+Approx 55% complete for EO070_S2_R1_001_test.fastq
+Approx 60% complete for EO070_S2_R1_001_test.fastq
+Approx 65% complete for EO070_S2_R1_001_test.fastq
+Approx 70% complete for EO070_S2_R1_001_test.fastq
+Approx 75% complete for EO070_S2_R1_001_test.fastq
+Approx 80% complete for EO070_S2_R1_001_test.fastq
+Approx 85% complete for EO070_S2_R1_001_test.fastq
+Approx 90% complete for EO070_S2_R1_001_test.fastq
+Approx 95% complete for EO070_S2_R1_001_test.fastq
+Approx 100% complete for EO070_S2_R1_001_test.fastq
+Analysis complete for EO070_S2_R1_001_test.fastq
+
+real	0m6.062s
+user	0m6.856s
+sys	0m0.444s
+	$ fastqc -o ../03_output/2018-07-09_output/01_fastqc/EO070_2 -t 20 ../04_testing/EO070_S2_R2_001_test.fastq
+Started analysis of EO070_S2_R2_001_test.fastq
+Approx 5% complete for EO070_S2_R2_001_test.fastq
+Approx 10% complete for EO070_S2_R2_001_test.fastq
+Approx 15% complete for EO070_S2_R2_001_test.fastq
+Approx 20% complete for EO070_S2_R2_001_test.fastq
+Approx 25% complete for EO070_S2_R2_001_test.fastq
+Approx 30% complete for EO070_S2_R2_001_test.fastq
+Approx 35% complete for EO070_S2_R2_001_test.fastq
+Approx 40% complete for EO070_S2_R2_001_test.fastq
+Approx 45% complete for EO070_S2_R2_001_test.fastq
+Approx 50% complete for EO070_S2_R2_001_test.fastq
+Approx 55% complete for EO070_S2_R2_001_test.fastq
+Approx 60% complete for EO070_S2_R2_001_test.fastq
+Approx 65% complete for EO070_S2_R2_001_test.fastq
+Approx 70% complete for EO070_S2_R2_001_test.fastq
+Approx 75% complete for EO070_S2_R2_001_test.fastq
+Approx 80% complete for EO070_S2_R2_001_test.fastq
+Approx 85% complete for EO070_S2_R2_001_test.fastq
+Approx 90% complete for EO070_S2_R2_001_test.fastq
+Approx 95% complete for EO070_S2_R2_001_test.fastq
+Approx 100% complete for EO070_S2_R2_001_test.fastq
+Analysis complete for EO070_S2_R2_001_test.fastq
+
+real	0m5.290s
+user	0m6.907s
+sys	0m0.494s
+
+>>> HISAT2: aligning each sample to the genome
+	$ hisat2 -x /projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10 -1 ../04_testing/EO070_S2_R1_001_test.fastq -2 ../04_testing/EO070_S2_R2_001_test.fastq -S ../03_output/2018-07-09_output/02_hisat2/EO070.sam --summary-file ../03_output/2018-07-09_output/02_hisat2/EO070_summary.txt --no-unal -p 12
+250000 reads; of these:
+  250000 (100.00%) were paired; of these:
+    104091 (41.64%) aligned concordantly 0 times
+    116296 (46.52%) aligned concordantly exactly 1 time
+    29613 (11.85%) aligned concordantly >1 times
+    ----
+    104091 pairs aligned concordantly 0 times; of these:
+      1864 (1.79%) aligned discordantly 1 time
+    ----
+    102227 pairs aligned 0 times concordantly or discordantly; of these:
+      204454 mates make up the pairs; of these:
+        156432 (76.51%) aligned 0 times
+        34677 (16.96%) aligned exactly 1 time
+        13345 (6.53%) aligned >1 times
+68.71% overall alignment rate
+
+real	0m38.707s
+user	0m36.421s
+sys	0m8.198s
+
+>>> HTSEQ: Run HTSeq-counts on all files to tabulate read counts per gene
+	htseq-count --stranded=yes --minaqual=20 -r pos -q ../03_output/2018-07-09_output/04_htseq/EO070.sam /projects/erinnish@colostate.edu/genomes/mm10/from_ensembl/gtf/Mus_musculus_GRCm38_2UCSC.gtf > ../03_output/2018-07-09_output/04_htseq/EO070_counts.txt
+Warning: Mate records missing for 65210 records; first such record: <SAM_Alignment object: Paired-end read 'NS500697:91:HYHMYAFXX:1:11103:6861:3182' aligned to chr17:[39846352,39846418)/+>.
+
+real	2m12.859s
+user	2m8.443s
+sys	0m2.917s
+
+>>> SAMTOOLS/BAMCOVERAGE: to convert files to uploadable _sort.bam and _sort.bam.bai files:
+	Samtools and BamCoverage convert: EO070
+	$ samtools view --threads 12 -bS ../03_output/2018-07-09_output/02_hisat2/EO070.sam > ../03_output/2018-07-09_output/03_samtools/EO070.bam
+	$ samtools sort --threads 12 -o ../03_output/2018-07-09_output/03_samtools/EO070_sort.bam --reference /projects/erinnish\@colostate.edu/genomes/mm10/from_ucsc/chromFa.tar.gz ../03_output/2018-07-09_output/03_samtools/EO070.bam
+	$ samtools index ../03_output/2018-07-09_output/03_samtools/EO070_sort.bam
+	$ bamCoverage -b ../03_output/2018-07-09_output/03_samtools/EO070_sort.bam -o ../03_output/2018-07-09_output/03_samtools/EO070_sort.bw --outFileFormat bigwig -p 12 --normalizeUsing CPM --binSize 1
+normalization: CPM
+region: None
+bedFile: None
+samFlag_include: None
+maxPairedFragmentLength: 1000
+zerosToNans: False
+out_file_for_raw_data: None
+binLength: 1
+ignoreDuplicates: False
+numberOfProcessors: 12
+samFlag_exclude: None
+minMappingQuality: None
+defaultFragmentLength: read length
+smoothLength: None
+minFragmentLength: 0
+chrsToSkip: []
+save_data: False
+bamFilesList: ['../03_output/2018-07-09_output/03_samtools/EO070_sort.bam']
+center_read: False
+maxFragmentLength: 0
+verbose: False
+numberOfSamples: None
+blackListFileName: None
+stepSize: 1
+
+real	4m55.953s
+user	53m11.478s
+sys	0m56.861s
+
+>>>ERCC variable is TRUE
+
+>>> ERCC HISAT2: aligning each sample to the ERCC spike in library
+	$ hisat2 -x /projects/erinnish@colostate.edu/genomes/ercc/ercc92 -1 EO070_S2_R1_001_test.fastq -2 EO070_S2_R2_001_test.fastq -S ../03_output/2018-07-09_output/05_ercc/EO070_ercc.sam --summary-file ../03_output/2018-07-09_output/05_ercc/EO070_ercc_summary.txt --no-unal -p 12
+250000 reads; of these:
+  250000 (100.00%) were paired; of these:
+    249990 (100.00%) aligned concordantly 0 times
+    10 (0.00%) aligned concordantly exactly 1 time
+    0 (0.00%) aligned concordantly >1 times
+    ----
+    249990 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    249990 pairs aligned 0 times concordantly or discordantly; of these:
+      499980 mates make up the pairs; of these:
+        499976 (100.00%) aligned 0 times
+        4 (0.00%) aligned exactly 1 time
+        0 (0.00%) aligned >1 times
+0.00% overall alignment rate
+
+real	0m1.845s
+user	0m9.100s
+sys	0m11.315s
+
+>>> HTSEQ_ERCC: Run HTSeq-counts on ERCC 'Genes'
+samtools sort --output-fmt SAM -o ../03_output/2018-07-09_output/05_ercc/EO070_ercc_sort.sam -n ../03_output/2018-07-09_output/05_ercc/EO070_ercc.sam
+	htseq-count --stranded=yes --minaqual=20 -r pos -q ../03_output/2018-07-09_output/05_ercc/EO070_ercc_sort.sam /projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf > ../03_output/2018-07-09_output/05_ercc/EO070_counts.txt
+Warning: Mate records missing for 4 records; first such record: <SAM_Alignment object: Paired-end read 'NS500697:91:HYHMYAFXX:1:11103:14671:15907' aligned to ERCC-00130:[331,407)/->.
+
+real	0m0.512s
+user	0m0.259s
+sys	0m1.089s
+
+>>> VERSIONS:
+
+>>> FASEQC VERSION:
+FastQC v0.11.5
+
+>>> HISAT2 VERSION:
+/projects/dcking@colostate.edu/bin/hisat2/hisat2-align-s version 2.1.0
+64-bit
+Built on login-node03
+Wed Jun  7 15:53:42 EDT 2017
+Compiler: gcc version 4.8.2 (GCC) 
+Options: -O3 -m64 -msse2 -funroll-loops -g3 -DPOPCNT_CAPABILITY
+Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
+
+>>> SAMTOOLS VERSION:
+samtools 1.4.1
+Using htslib 1.4.1
+Copyright (C) 2017 Genome Research Ltd.
+
+>>> HTSEQ-COUNT VERSION:
+Public License v3. Part of the 'HTSeq' framework, version 0.9.1.
+
+>>> BAMCOVERAGE VERSION:
+bamCoverage 3.0.2
+>>> END: Analayzer complete.

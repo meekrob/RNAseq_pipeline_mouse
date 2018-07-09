@@ -1,0 +1,14 @@
+Loading BX Environment... Environment loaded.
+>>> INITIATING cleanup with command:
+	RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt
+>>>Zipping files
+gzipping EO070_S2_R1_001_test.fastq
+gzipping EO070_S2_R2_001_test.fastq
+
+>>> DELETING .sam files. Ensuring that _sort.bam files exists and keeping it:
+	$ rm ../03_output/2018-07-09_output/02_hisat2/EO070.sam
+
+>>> DELETING .bam files. Ensuring that _sort.bam files exists and keeping it:
+	$ rm ../03_output/2018-07-09_output/03_samtools/EO070.bam
+
+>>> END PROGRAM: Clean up is complete.

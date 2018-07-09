@@ -37,7 +37,14 @@ $ sbatch execute_RNAseq_pipeline.sh
 
 # INSTRUCTIONS
 
-## 1: Modify Step1... RNAseq_analyzer_mouse_180706.sh
+## 1: Prepare input information
+* Copy and paste your input sequences to be analyzed in the directory **01_input**
+* Write a metadata.txt file into the directory **01_input**. This is a flat text file that contains a minimum of three, tab-separated columns. The first two columns are fastq.gz 
+#                            file names. The third column is a "nickname" of each sample. Later columns 
+#                            can be included with other metadata information. Metadata file should be 
+#                            placed within the inputdir directory. Example of a metadata file:
+
+## 2: Modify Step1... RNAseq_analyzer_mouse_180706.sh
 *  Navigate into ```02_scripts```
 *  Open ```RNAseq_analyzer_180706.sh``` and modify the section between ###### MODIFY THIS ####### **and** ####### DONE MODIFYING ######
 * Update __input directory__
@@ -80,7 +87,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
   #This is where the ercc .gtf file lives:
   erccgtf="/projects/erinnish@colostate.edu/genomes/ercc/ERCC92.gtf"
   ```
-## 2: Modify Step2... RNAseq_cleanup_mouse_180706.sh
+## 3: Modify Step2... RNAseq_cleanup_mouse_180706.sh
 *  Navigate into ```02_scripts```
 * Open ```RNAseq_cleanup_180706.sh``` and modify the section between ###### MODIFY THIS ####### **and** ####### DONE MODIFYING ######
 * Update __input directory__
@@ -109,7 +116,7 @@ chromFa.tar.gz          09-Feb-2012 13:54  830M
  
 
 
- ## 3: Optional testing... execute_RNAseq_pipeline.sh to run on test files
+ ## 4: Optional testing... execute_RNAseq_pipeline.sh to run on test files
  * Open **execute_RNAseq_pipeline.sh** and modify the script to fit your desired SUMMIT conditions and testing files:
  
 ```bash
@@ -149,7 +156,7 @@ $ sbatch execute_RNAseq_pipeline.sh
 * Check that the resulting 03_output directory matches the example output directory in ```.../04_testing/2018-07-09_output/"
 
 
- ## 4: Modify wrapper... execute_RNAseq_pipeline.sh 
+ ## 5: Modify wrapper... execute_RNAseq_pipeline.sh 
  * Open **execute_RNAseq_pipeline.sh** and modify the script to fit YOUR desired SUMMIT conditions, intput directories, input files, and other preferences.
  
 ```

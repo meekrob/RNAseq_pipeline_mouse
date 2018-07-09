@@ -38,7 +38,7 @@ $ sbatch execute_RNAseq_pipeline.sh
 # INSTRUCTIONS
 
 ## 1: Prepare input information
-* Copy and paste your **input .fastq.gz sequences** to be analyzed in the directory **01_input**
+* Copy and paste your input **.fastq.gz** sequences to be analyzed in the directory **01_input**
 * Write a **metadata.txt** file into the directory **01_input**. This is a flat text file that contains a minimum of three, tab-separated columns. The first two columns are fastq.gz file names for the two paired-end sequence files associated with each sample. The third column is a "nickname" of each sample. Later columns an be included with other metadata information. Metadata file should be placed within the inputdir directory. Example of a metadata file:
 
 ```

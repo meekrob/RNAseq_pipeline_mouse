@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #SBATCH --job-name=execute_RNAseq_pipeline 
 #SBATCH --nodes=1

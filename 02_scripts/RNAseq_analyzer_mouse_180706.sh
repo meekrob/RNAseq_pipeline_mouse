@@ -67,7 +67,7 @@ pthread=$2
 
 
 # WERE ERCC SPIKE INS USED?
-ercc="TRUE"   # Change to TRUE if ERCC spike-ins were used in the experiment
+ercc="FALSE"   # Change to TRUE if ERCC spike-ins were used in the experiment
 
 #This is where the ercc bt2 files lives:
 erccpath="/projects/erinnish@colostate.edu/genomes/ercc/ercc92"
@@ -195,6 +195,7 @@ done
 echo -e "\n>>> HTSEQ: Run HTSeq-counts on all files to tabulate read counts per gene"
 outhtseq=$outputdir"04_htseq/"
 mkdir -p $outhtseq
+loadpy2
 
 for (( counter=0; counter < ${#samples1[@]}; counter++ ))
 do
@@ -230,10 +231,10 @@ do
     samtools index ${samout}${seqname}_sort.bam
     
     # bamCoverage: 
-    export PYTHONPATH=/projects/dcking@colostate.edu/lib/python3.5/site-packages/
+    loadpy3
     echo -e "\t$ bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1"
     time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
-    export PYTHONPATH=/projects/dcking@colostate.edu/lib/python2.7/site-packages/
+    loadpy2
 done
 
 

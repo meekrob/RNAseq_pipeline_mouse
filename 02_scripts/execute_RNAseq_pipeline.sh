@@ -8,15 +8,21 @@
 #SBATCH --time=0:29:00   # modify this to reflect how long to let the job go. This indicates 4 hours.
 #SBATCH --output=log_RNAseq_pipe_%j.txt
 
-##
-source /projects/dcking@colostate.edu/paths.bashrc
+## Container setup
+module load singularity 
+CONTAINER_IMG=/projects/dcking@colostate.edu/shub/dcking_bio.img
 
-## execute the RNA-seq_pipeline
-bash RNAseq_analyzer_mouse_180706.sh ../04_testing/metadata_mouse.txt $SLURM_NTASKS
-     # modify the SECOND argument to point to YOUR metadata.file
-     # modify the THIRD argument to indicate the number of THREADS you 
-     # want to use. This number must match the number in #SBATCH --ntasks=#
+# Your metadata.file
+METADATA=../04_testing/metadata_mouse.txt
 
-## clean up by zipping .fastq files and deleting extra files
-#bash RNAseq_cleanup_mouse_180706.sh ../04_testing/metadata_mouse.txt
-     # modify the SECOND argument to point to YOUR metadata.file
+if true
+then
+    ## execute the RNA-seq_pipeline
+    singularity exec $CONTAINER_IMG \
+    bash RNAseq_analyzer_mouse_180706.sh $METADATA $SLURM_NTASKS
+else
+    ## clean up by zipping .fastq files and deleting extra files
+    # does samming and bamming
+    singularity exec $CONTAINER_IMG \
+    bash RNAseq_cleanup_mouse_180706.sh $METADATA
+fi

@@ -195,7 +195,6 @@ done
 echo -e "\n>>> HTSEQ: Run HTSeq-counts on all files to tabulate read counts per gene"
 outhtseq=$outputdir"04_htseq/"
 mkdir -p $outhtseq
-loadpy2
 
 for (( counter=0; counter < ${#samples1[@]}; counter++ ))
 do
@@ -231,13 +230,9 @@ do
     samtools index ${samout}${seqname}_sort.bam
     
     # bamCoverage: 
-    loadpy3
     echo -e "\t$ bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1"
     time bamCoverage -b ${samout}${seqname}_sort.bam -o ${samout}${seqname}_sort.bw --outFileFormat bigwig -p $pthread --normalizeUsing CPM --binSize 1
-    loadpy2
 done
-
-
 
 
 ##############################################
@@ -300,6 +295,5 @@ samtools --version
 echo -e "\n>>> HTSEQ-COUNT VERSION:"
 htseq-count --help | grep "version"
 echo -e "\n>>> BAMCOVERAGE VERSION:"
-export PYTHONPATH=/projects/dcking@colostate.edu/lib/python3.5/site-packages/
 bamCoverage --version
 echo -e ">>> END: Analayzer complete."

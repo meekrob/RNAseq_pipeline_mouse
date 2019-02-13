@@ -1,3 +1,6 @@
+# Containerization
+I am modifying this pipeline to use the bio container.
+
 # RNAseq_pipeline_mouse
 This is a very basic RNA-seq pipeline that I use for analyzing mouse, paired-end RNA-seq. **Step1** is a simple wrapper that performs quality control, genome alignment, basic format conversions, and htseq-count tabulation for paired-end RNA-seq samples using the mouse genome. **Step2** is a clean up program that removes unnecessary files and compress files to save space.
 

@@ -10,7 +10,7 @@
 
 ## Container setup
 module load singularity 
-CONTAINER_IMG=/projects/dcking@colostate.edu/shub/dcking_bio.img
+CONTAINER_IMG=/projects/dcking@colostate.edu/shub/monaghaa-dcking-master-latest.simg
 
 # Your metadata.file
 METADATA=../04_testing/metadata_mouse.txt

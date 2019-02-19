@@ -5,15 +5,15 @@
 #SBATCH --ntasks=12      # modify this number to reflect how many cores you want to use (up to 24)
 #SBATCH --partition=shas
 #SBATCH --qos=normal     # modify this to reflect which queue you want to use. Options are 'normal' and 'testing'
-#SBATCH --time=0:29:00   # modify this to reflect how long to let the job go. This indicates 4 hours.
+#SBATCH --time=3:00:00   # modify this to reflect how long to let the job go. This indicates 4 hours.
 #SBATCH --output=log_RNAseq_pipe_%j.txt
 
 ## Container setup
 module load singularity 
-CONTAINER_IMG=/projects/dcking@colostate.edu/shub/dcking_bio.img
+CONTAINER_IMG=/projects/dcking@colostate.edu/shub/monaghaa-dcking-master-latest.simg
 
 # Your metadata.file
-METADATA=../04_testing/metadata_mouse.txt
+METADATA=/projects/jesshill@colostate.edu/erins/RNAseq_pipeline_mouse/01_input/metadata_mouse.txt
 
 if true
 then

@@ -29,7 +29,7 @@ echo -e ">>> INITIATING cleanup with command:\n\t$0 $@"
 ####### MODIFY THIS SECTION #############
 
 #The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../04_testing/"
+inputdir="/projects/jesshill@colostate.edu/erins/RNAseq_pipeline_mouse/01_input/"
 
 #This is the output_directory:
 DATE=`date +%Y-%m-%d`

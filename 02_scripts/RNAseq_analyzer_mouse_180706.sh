@@ -51,7 +51,7 @@ echo -e ">>> INITIATING analyzer with command:\n\t$0 $@"
 ####### MODIFY THIS SECTION #############
 
 #The input samples (metadata file and _fastq.gz files) live in directory:
-inputdir="../04_testing/"
+inputdir="/projects/jesshill@colostate.edu/erins/RNAseq_pipeline_mouse/01_input/"
 
 #This is where the bt2 files live:
 hisat2path="/projects/erinnish@colostate.edu/genomes/mm10/from_ucsc/mm10"
@@ -124,6 +124,7 @@ done
 
 # UNZIP all the input files: 
 echo -e "\n>>> GUNZIP: unzipping _R1.fastq.gz files:"
+# maybe this should check for .gz first
 for fastqfile in ${samples1[@]}
 do
    echo -e "\tgunzipping $fastqfile"
